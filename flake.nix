@@ -33,9 +33,9 @@
           h = p.stdenv.hostPlatform;
           # gmp's x86_64 mpn assembly emits a rel8 BRANCH that Mach-O ld64.lld
           # rejects ("BRANCH relocation has width 1 bytes, but must be 4"); ELF
-          # lld relaxes it. Same fix as php: gmp's generic C mpn on darwin, with
+          # lld relaxes it. So on x86_64 macOS, gmp's generic C mpn, with
           # --disable-fat since configure refuses fat without assembly.
-          gmp = p.gmp.overrideAttrs (o: p.lib.optionalAttrs h.isDarwin {
+          gmp = p.gmp.overrideAttrs (o: p.lib.optionalAttrs (h.isDarwin && h.isx86_64) {
             configureFlags = (o.configureFlags or [ ]) ++ [ "--disable-fat" "--disable-assembly" ];
           });
         in
