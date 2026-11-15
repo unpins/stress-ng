@@ -53,3 +53,6 @@ The [Releases](https://github.com/unpins/stress-ng/releases) page has standalone
 - **Stressors on macOS:** the Linux-only stressors (kernel modules, AppArmor, SCTP, async I/O, ACLs, …) are not available there; stress-ng skips them at run time.
 - **`gpu` stressor:** not built. It drives the GPU through EGL/GLES and `gbm`, whose libraries load the vendor's graphics driver at run time and have no static build.
 - **`ipsec-mb` stressor:** x86_64 Linux only — Intel's multi-buffer crypto library is written for x86_64.
+- **`dynlib`, `plugin` and `uprobe` stressors:** not available. `dynlib` and `plugin` load shared libraries at run time, and `uprobe` probes a function in the shared libc; the single self-contained binary has neither.
+- **`--buildinfo`:** reports `build: static image` on Linux. On macOS it reports `dynamic link`, which is true there: the binary links the system's `libSystem`.
+- **Tests:** stress-ng has no test suite to run at build time; its `*-test` targets exercise the running kernel (`/proc`, `/sys`, privileges), which the build sandbox does not provide. Each build runs `stress-ng --version` as a smoke test.

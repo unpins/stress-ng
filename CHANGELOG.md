@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- On Linux, `stress-ng --buildinfo` reported `build: dynamic link`; it now
+  reports `build: static image`.
+
 ## [0.21.01-1] - 2026-09-26
 
 Initial release — `stress-ng` 0.21.01 as a single self-contained binary, built

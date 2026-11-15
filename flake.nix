@@ -27,6 +27,8 @@
       # only the `gpu` stressor, and both dlopen the vendor's GL/DRM driver at
       # run time, so neither has a static build; libgcrypt is a stale nixpkgs
       # input (stress-ng removed that dependency upstream).
+      # No test suite: upstream has no check target, and its *-test targets
+      # exercise the kernel (/proc, /sys, privileges) the build sandbox lacks.
       build = pkgs:
         let
           p = pkgs.pkgsStatic;
