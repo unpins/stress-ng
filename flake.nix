@@ -40,6 +40,7 @@
           });
         in
         (p.stress-ng.override { libglvnd = null; libgbm = null; libgcrypt = null; }).overrideAttrs (old: {
+          patches = (old.patches or [ ]) ++ p.lib.optional h.isMusl ./buildinfo-static-image.patch;
           buildInputs = old.buildInputs
             ++ [ gmp (p.mpfr.override { inherit gmp; }) p.libjpeg p.libxcrypt p.libmd p.xxHash p.xz ]
             ++ p.lib.optionals h.isLinux [ p.acl p.kmod p.zstd ]
